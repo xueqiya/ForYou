@@ -5,9 +5,10 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 /**
- * @author jingbin
- * @data 2018/12/22
- * @Description 没有viewModel的情况
+ * @author xueqi
+ * @emil jiaowoxueqiya@gmail.com
+ * create at 2019/2/19	15:37
+ * description:
  */
 
 public class NoViewModel extends AndroidViewModel {

@@ -1,12 +1,11 @@
 package com.yiya.qq.api;
 
-import com.yiya.qq.model.bean.BaseBean;
+import com.yiya.qq.model.bean.TouTiaoBean;
 
 import io.reactivex.Observable;
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author xueqi
@@ -15,9 +14,9 @@ import retrofit2.http.POST;
  * description:
  */
 public interface AppApi {
+    String key = "060b5543a5db2cf5b99279f837738df2";
 
-    @Headers({"url_name:client"})
-    @POST("UPDapp")
-    Observable<BaseBean> UPDapp(@Body RequestBody requestBody);
+    @POST("/toutiao/index")
+    Observable<TouTiaoBean> toutiao(@Query("type") String type, @Query("key") String key);
 
 }

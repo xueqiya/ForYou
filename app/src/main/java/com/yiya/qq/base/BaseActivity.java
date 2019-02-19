@@ -41,7 +41,6 @@ public abstract class BaseActivity<SV extends ViewDataBinding,VM extends Android
 
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
         mBaseBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
         bindingView = DataBindingUtil.inflate(getLayoutInflater(), layoutResID, null, false);
 

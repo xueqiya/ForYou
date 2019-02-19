@@ -1,5 +1,8 @@
 package com.yiya.qq.ui.home;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.yiya.qq.R;
 import com.yiya.qq.base.BaseFragment;
 import com.yiya.qq.databinding.FragmentHomeBinding;
@@ -15,5 +18,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding,HomeViewModel
     @Override
     public int setContent() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showContentView();
+        viewModel.getTouTiao();
     }
 }

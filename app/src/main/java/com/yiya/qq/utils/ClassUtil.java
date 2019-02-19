@@ -6,7 +6,10 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Created by jingbin on 2018/12/26.
+ * @author xueqi
+ * @emil jiaowoxueqiya@gmail.com
+ * create at 2019/2/19	15:37
+ * description:
  */
 
 public class ClassUtil {

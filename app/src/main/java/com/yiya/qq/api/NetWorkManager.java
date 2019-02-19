@@ -1,6 +1,12 @@
 package com.yiya.qq.api;
 
+import com.yiya.qq.utils.AppConstants;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author xueqi
@@ -24,9 +30,25 @@ public class NetWorkManager {
         return mInstance;
     }
 
+    public void init() {
+        // 初始化okhttp
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+
+        // 初始化Retrofit
+        retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(AppConstants.BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
     public static AppApi getRequest() {
         if (request == null) {
-            request = retrofit.create(AppApi.class);
+            synchronized (Request.class) {
+                request = retrofit.create(AppApi.class);
+            }
         }
         return request;
     }
