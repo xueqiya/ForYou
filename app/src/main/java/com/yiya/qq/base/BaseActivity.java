@@ -1,26 +1,26 @@
 package com.yiya.qq.base;
 
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.RelativeLayout;
 
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yiya.qq.R;
 import com.yiya.qq.databinding.ActivityBaseBinding;
 import com.yiya.qq.dialog.DefaultProgress;
 import com.yiya.qq.utils.ClassUtil;
 
-public abstract class BaseActivity<SV extends ViewDataBinding,VM extends AndroidViewModel> extends AppCompatActivity {
+public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseViewModel> extends RxAppCompatActivity {
     private DefaultProgress defaultProgress;
     // ViewModel
     protected VM viewModel;
@@ -33,6 +33,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding,VM extends Android
     protected <T extends View> T getView(int id) {
         return (T) findViewById(id);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +57,14 @@ public abstract class BaseActivity<SV extends ViewDataBinding,VM extends Android
         setToolBar();
 
         bindingView.getRoot().setVisibility(View.GONE);
+
         initViewModel();
+        //让ViewModel拥有View的生命周期感应
+        getLifecycle().addObserver(viewModel);
+        //注入RxLifecycle生命周期
+        viewModel.injectLifecycleProvider(this);
     }
+
     /**
      * 设置titlebar
      */
@@ -91,10 +98,12 @@ public abstract class BaseActivity<SV extends ViewDataBinding,VM extends Android
             this.viewModel = ViewModelProviders.of(this).get(viewModelClass);
         }
     }
+
     @Override
     public void setTitle(CharSequence text) {
         mBaseBinding.toolBar.setTitle(text);
     }
+
     protected void showLoading() {
         if (refresh.getVisibility() != View.GONE) {
             refresh.setVisibility(View.GONE);
@@ -130,19 +139,21 @@ public abstract class BaseActivity<SV extends ViewDataBinding,VM extends Android
             bindingView.getRoot().setVisibility(View.GONE);
         }
     }
+
     /**
      * 失败后点击刷新
      */
     protected void onRefresh() {
 
     }
+
     public void showProgress() {
         if (defaultProgress == null) {
             defaultProgress = new DefaultProgress();
             defaultProgress.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransparentDialogStyle);
-            defaultProgress.show(getSupportFragmentManager(),"defaultProgress");
+            defaultProgress.show(getSupportFragmentManager(), "defaultProgress");
         } else {
-            defaultProgress.show(getSupportFragmentManager(),"defaultProgress");
+            defaultProgress.show(getSupportFragmentManager(), "defaultProgress");
         }
     }
 

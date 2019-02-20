@@ -1,5 +1,6 @@
 package com.yiya.qq.api;
 
+import com.yiya.qq.model.bean.BaseBean;
 import com.yiya.qq.model.bean.TouTiaoBean;
 
 import io.reactivex.Observable;
@@ -17,6 +18,6 @@ public interface AppApi {
     String key = "060b5543a5db2cf5b99279f837738df2";
 
     @POST("/toutiao/index")
-    Observable<TouTiaoBean> toutiao(@Query("type") String type, @Query("key") String key);
+    Observable<BaseBean<TouTiaoBean>> toutiao(@Query("type") String type, @Query("key") String key);
 
 }

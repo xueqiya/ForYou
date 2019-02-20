@@ -1,22 +1,18 @@
 package com.yiya.qq.base;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.yiya.qq.R;
 import com.yiya.qq.utils.ClassUtil;
 
@@ -26,7 +22,7 @@ import com.yiya.qq.utils.ClassUtil;
  * create at 2019/2/13	13:04
  * description:
  */
-public abstract class BaseFragment<SV extends ViewDataBinding, VM extends AndroidViewModel> extends Fragment {
+public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseViewModel> extends RxFragment {
 
     // ViewModel
     protected VM viewModel;
@@ -64,7 +60,12 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends Androi
             }
         });
         bindingView.getRoot().setVisibility(View.GONE);
+
         initViewModel();
+        //让ViewModel拥有View的生命周期感应
+        getLifecycle().addObserver(viewModel);
+        //注入RxLifecycle生命周期
+        viewModel.injectLifecycleProvider(this);
     }
 
     /**

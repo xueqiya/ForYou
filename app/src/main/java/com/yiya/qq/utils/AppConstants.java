@@ -7,6 +7,6 @@ package com.yiya.qq.utils;
  * description:
  */
 public class AppConstants {
-    public static final String BASE_URL = "http://v.juhe.cn";
+    public static final String BASE_URL = "http://v.juhe.cn/";
     public static final String TAG = "日常打log";
 }

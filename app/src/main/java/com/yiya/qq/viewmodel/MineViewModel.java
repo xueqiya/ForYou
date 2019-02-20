@@ -1,9 +1,11 @@
-package com.yiya.qq.ui.mine;
+package com.yiya.qq.viewmodel;
 
 import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LifecycleObserver;
 import android.support.annotation.NonNull;
 
-import com.yiya.qq.base.BaseListViewModel;
+import com.yiya.qq.base.BaseViewModel;
 
 
 /**
@@ -12,7 +14,7 @@ import com.yiya.qq.base.BaseListViewModel;
  * create at 2019/2/19	15:44
  * description:
  */
-public class MineViewModel extends BaseListViewModel {
+public class MineViewModel extends BaseViewModel implements LifecycleObserver {
     public MineViewModel(@NonNull Application application) {
         super(application);
     }

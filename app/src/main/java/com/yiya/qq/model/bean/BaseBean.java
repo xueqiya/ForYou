@@ -2,40 +2,40 @@ package com.yiya.qq.model.bean;
 
 public class BaseBean<T>{
 
-    private int ReturnCode;
-    private boolean Success;
-    private String Message;
-    private T Result;
+    private int resultcode;
+    private int error_code;
+    private String reason;
+    private T result;
 
-    public boolean isSuccess() {
-        return Success;
+    public int getResultcode() {
+        return resultcode;
     }
 
-    public void setSuccess(boolean success) {
-        Success = success;
+    public void setResultcode(int resultcode) {
+        this.resultcode = resultcode;
     }
 
-    public String getMessage() {
-        return Message;
+    public int getError_code() {
+        return error_code;
     }
 
-    public void setMessage(String message) {
-        Message = message;
+    public void setError_code(int error_code) {
+        this.error_code = error_code;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public T getResult() {
-        return Result;
+        return result;
     }
 
     public void setResult(T result) {
-        Result = result;
-    }
-
-    public int getReturnCode() {
-        return ReturnCode;
-    }
-
-    public void setReturnCode(int returnCode) {
-        ReturnCode = returnCode;
+        this.result = result;
     }
 }
