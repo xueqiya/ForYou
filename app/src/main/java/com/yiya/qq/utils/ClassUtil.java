@@ -1,6 +1,6 @@
 package com.yiya.qq.utils;
 
-import android.arch.lifecycle.AndroidViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

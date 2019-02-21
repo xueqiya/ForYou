@@ -1,8 +1,10 @@
 package com.yiya.qq;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 import com.yiya.qq.adapter.ViewPagerAdapter;
@@ -24,10 +26,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showContentView();
+
+        bindingView.viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
+        showFragment(0);
+    }
+
+    @Override
+    public void initView() {
+
         initFragment();
         initListener();
-        showContentView();
-        bindingView.viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
     }
 
     private void initFragment() {
@@ -56,24 +65,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         @Override
         public void onPageSelected(int i) {
-            switch (i) {
-                case 0:
-                    bindingView.viewPage.setCurrentItem(0);
-                    bindingView.home.callOnClick();
-                    break;
-                case 1:
-                    bindingView.viewPage.setCurrentItem(1);
-                    bindingView.market.callOnClick();
-                    break;
-                case 2:
-                    bindingView.viewPage.setCurrentItem(2);
-                    bindingView.transation.callOnClick();
-                    break;
-                case 3:
-                    bindingView.viewPage.setCurrentItem(3);
-                    bindingView.mine.callOnClick();
-                    break;
-            }
+            showFragment(i);
         }
 
         @Override
@@ -87,18 +79,43 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         protected void onNoDoubleClick(View v) {
             switch (v.getId()) {
                 case R.id.home:
-                    bindingView.viewPage.setCurrentItem(0);
+                    showFragment(0);
                     break;
                 case R.id.market:
-                    bindingView.viewPage.setCurrentItem(1);
+                    showFragment(1);
                     break;
                 case R.id.transation:
-                    bindingView.viewPage.setCurrentItem(2);
+                    showFragment(2);
                     break;
                 case R.id.mine:
-                    bindingView.viewPage.setCurrentItem(3);
+                    showFragment(3);
                     break;
             }
         }
     };
+
+    private void showFragment(int i) {
+        switch (i) {
+            case 0:
+                bindingView.viewPage.setCurrentItem(0);
+                bindingView.home.callOnClick();
+                setTitle("首页");
+                break;
+            case 1:
+                bindingView.viewPage.setCurrentItem(1);
+                bindingView.market.callOnClick();
+                setTitle("");
+                break;
+            case 2:
+                bindingView.viewPage.setCurrentItem(2);
+                bindingView.transation.callOnClick();
+                setTitle("");
+                break;
+            case 3:
+                bindingView.viewPage.setCurrentItem(3);
+                bindingView.mine.callOnClick();
+                setTitle("我的");
+                break;
+        }
+    }
 }

@@ -1,11 +1,14 @@
 package com.yiya.qq.base;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.yiya.qq.R;
 import com.yiya.qq.utils.ClassUtil;
+import com.yiya.qq.utils.L;
 
 /**
  * @author xueqi
@@ -44,28 +48,30 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
         bindingView.getRoot().setLayoutParams(params);
         mContainer = ll.findViewById(R.id.container);
         mContainer.addView(bindingView.getRoot());
+        loadingView = ll.findViewById(R.id.progress);
+        mRefresh = ll.findViewById(R.id.ll_error_refresh);
         return ll;
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loadingView = getView(R.id.progress);
-        mRefresh = getView(R.id.ll_error_refresh);
         // 点击加载失败布局
         mRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                L.d("点击刷新");
                 showLoading();
                 onRefresh();
             }
         });
-        bindingView.getRoot().setVisibility(View.GONE);
-
+        showLoading();
         initViewModel();
         //让ViewModel拥有View的生命周期感应
         getLifecycle().addObserver(viewModel);
         //注入RxLifecycle生命周期
         viewModel.injectLifecycleProvider(this);
+        initView();
     }
 
     /**
@@ -81,6 +87,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
     protected <T extends View> T getView(int id) {
         return (T) getView().findViewById(id);
     }
+
     protected void showLoading() {
         if (mRefresh.getVisibility() != View.GONE) {
             mRefresh.setVisibility(View.GONE);
@@ -116,10 +123,16 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
             bindingView.getRoot().setVisibility(View.GONE);
         }
     }
+
     /**
      * 布局
      */
     public abstract int setContent();
+
+    /**
+     * 初始化view
+     */
+    public abstract void initView();
 
     /**
      * 加载失败后点击后的操作

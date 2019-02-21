@@ -18,28 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--加载失败-->
-            <LinearLayout
-                android:id="@+id/ll_error_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/img_err"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="加载失败,点击重试"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/progress"
                 android:layout_width="match_parent"
@@ -60,6 +38,28 @@
                     android:layout_marginTop="15sp"
                     android:text="正在加载"
                     android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+            <!--加载失败-->
+            <LinearLayout
+                android:id="@+id/ll_error_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_err"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="加载失败,点击重试"
+                    android:textSize="15sp" />
             </LinearLayout>
 
         </RelativeLayout>

@@ -1,9 +1,10 @@
 package com.yiya.qq;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LifecycleObserver;
-import android.support.annotation.NonNull;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.annotation.NonNull;
 
 import com.yiya.qq.base.BaseViewModel;
 

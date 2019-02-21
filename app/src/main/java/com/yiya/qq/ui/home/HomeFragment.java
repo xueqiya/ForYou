@@ -1,15 +1,16 @@
 package com.yiya.qq.ui.home;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.yiya.qq.R;
 import com.yiya.qq.adapter.TouTiaoAdapter;
 import com.yiya.qq.base.BaseFragment;
 import com.yiya.qq.databinding.FragmentHomeBinding;
-import com.yiya.qq.model.bean.BaseBean;
 import com.yiya.qq.model.bean.TouTiaoBean;
 import com.yiya.qq.viewmodel.HomeViewModel;
 
@@ -32,24 +33,33 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     }
 
     @Override
+    public void initView() {
+        bindingView.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        touTiaoAdapter = new TouTiaoAdapter(R.layout.toutiao_item, touTiaoList);
+        bindingView.recycleView.setAdapter(touTiaoAdapter);
+        viewModel.getTouTiao();
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        showLoading();
-        bindingView.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        bindingView.recycleView.setItemAnimator(null);
-        touTiaoAdapter = new TouTiaoAdapter(R.layout.toutiao_item, touTiaoList);
-        viewModel.getTouTiao();
 
         viewModel.getTouTiao().observe(this, new Observer<TouTiaoBean>() {
             @Override
             public void onChanged(@Nullable TouTiaoBean touTiaoBean) {
                 showContentView();
                 if (touTiaoBean == null) {
+                    showError();
                     return;
                 }
-                touTiaoList.addAll(touTiaoBean.getData());
+                touTiaoAdapter.addData(touTiaoBean.getData());
                 touTiaoAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    protected void onRefresh() {
+        viewModel.getTouTiao();
     }
 }

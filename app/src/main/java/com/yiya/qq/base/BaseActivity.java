@@ -1,13 +1,12 @@
 package com.yiya.qq.base;
 
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import android.os.Build;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,12 +56,13 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         setToolBar();
 
         bindingView.getRoot().setVisibility(View.GONE);
-
+        showLoading();
         initViewModel();
         //让ViewModel拥有View的生命周期感应
         getLifecycle().addObserver(viewModel);
         //注入RxLifecycle生命周期
         viewModel.injectLifecycleProvider(this);
+        initView();
     }
 
     /**
@@ -140,13 +140,6 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         }
     }
 
-    /**
-     * 失败后点击刷新
-     */
-    protected void onRefresh() {
-
-    }
-
     public void showProgress() {
         if (defaultProgress == null) {
             defaultProgress = new DefaultProgress();
@@ -161,5 +154,17 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         if (defaultProgress != null) {
             defaultProgress.dismiss();
         }
+    }
+
+    /**
+     * 初始化view
+     */
+    public abstract void initView();
+
+    /**
+     * 失败后点击刷新
+     */
+    protected void onRefresh() {
+
     }
 }

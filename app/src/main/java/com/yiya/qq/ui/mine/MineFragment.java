@@ -1,7 +1,8 @@
 package com.yiya.qq.ui.mine;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.yiya.qq.R;
 import com.yiya.qq.base.BaseFragment;
@@ -22,8 +23,11 @@ public class MineFragment extends BaseFragment<FragmentMineBinding, MineViewMode
     }
 
     @Override
+    public void initView() {
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        showContentView();
     }
 }

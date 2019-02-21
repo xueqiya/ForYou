@@ -1,13 +1,12 @@
 package com.yiya.qq.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.MutableLiveData;
-import android.os.Looper;
-import android.support.annotation.NonNull;
 
-import com.yiya.qq.api.ApiException;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.MutableLiveData;
+import androidx.annotation.NonNull;
+
 import com.yiya.qq.api.BaseObserver;
 import com.yiya.qq.api.NetWorkManager;
 import com.yiya.qq.base.BaseViewModel;
@@ -34,7 +33,7 @@ public class HomeViewModel extends BaseViewModel implements LifecycleObserver {
                 .subscribe(new BaseObserver<TouTiaoBean>() {
                     @Override
                     public void onSuccess(TouTiaoBean touTiaoBean) {
-                        listData.setValue(touTiaoBean);
+                        listData.postValue(touTiaoBean);
                     }
 
                     @Override

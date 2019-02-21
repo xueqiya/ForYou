@@ -1,7 +1,7 @@
 package com.yiya.qq.adapter;
 
-import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -10,6 +10,7 @@ import com.yiya.qq.databinding.ToutiaoItemBinding;
 import com.yiya.qq.model.bean.TouTiaoBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xueqi
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class TouTiaoAdapter extends BaseQuickAdapter<TouTiaoBean.DataBean, BaseViewHolder> {
 
-    public TouTiaoAdapter(int layoutResId, @Nullable ArrayList<TouTiaoBean.DataBean> data) {
+    public TouTiaoAdapter(int layoutResId, @Nullable List<TouTiaoBean.DataBean> data) {
         super(layoutResId, data);
     }
 
