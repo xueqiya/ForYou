@@ -11,7 +11,6 @@ import com.yiya.qq.R;
 import com.yiya.qq.adapter.TouTiaoAdapter;
 import com.yiya.qq.base.BaseFragment;
 import com.yiya.qq.databinding.FragmentHomeBinding;
-import com.yiya.qq.model.bean.TouTiaoBean;
 import com.yiya.qq.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
@@ -44,17 +43,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        viewModel.getTouTiao().observe(this, new Observer<TouTiaoBean>() {
-            @Override
-            public void onChanged(@Nullable TouTiaoBean touTiaoBean) {
-                showContentView();
-                if (touTiaoBean == null) {
-                    showError();
-                    return;
-                }
-                touTiaoAdapter.addData(touTiaoBean.getData());
-                touTiaoAdapter.notifyDataSetChanged();
+        viewModel.getTouTiao().observe(this, touTiaoBeans -> {
+            showContentView();
+            if (touTiaoBeans == null) {
+                showError();
+                return;
             }
+            touTiaoAdapter.addData(touTiaoBeans);
+            touTiaoAdapter.notifyDataSetChanged();
         });
     }
 

@@ -1,11 +1,19 @@
 package com.yiya.qq.model.bean;
 
-public class BaseBean<T> {
+import java.util.List;
+
+/**
+ * @author xueqi
+ * @emil jiaowoxueqiya@gmail.com
+ * create at 2019/2/22	14:05
+ * description:
+ */
+public class ListBaseBean<T> {
 
     private int code;
     private String message;
     private String status;
-    private T data;
+    private List<T> data;
 
     public int getCode() {
         return code;
@@ -31,12 +39,11 @@ public class BaseBean<T> {
         this.status = status;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }
-

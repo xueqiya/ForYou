@@ -1,7 +1,9 @@
 package com.yiya.qq.api;
 
 import com.yiya.qq.model.bean.BaseBean;
-import com.yiya.qq.utils.L;
+import com.yiya.qq.model.bean.ListBaseBean;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -13,9 +15,9 @@ import io.reactivex.disposables.Disposable;
  * create at 2019/2/20	13:19
  * description:
  */
-public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
+public abstract class ListBaseObserver<T> implements Observer<ListBaseBean<T>> {
     @Override
-    public final void onNext(@NonNull BaseBean<T> baseBean) {
+    public final void onNext(@NonNull ListBaseBean<T> baseBean) {
         if (baseBean.getCode() == 200) {
             onSuccess(baseBean.getData());
         } else {
@@ -36,7 +38,7 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     public void onSubscribe(@NonNull Disposable d) {
     }
 
-    public abstract void onSuccess(T result);
+    public abstract void onSuccess(List<T> result);
 
     public abstract void onFailure(int code, String errorMessage);
 }

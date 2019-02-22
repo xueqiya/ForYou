@@ -5,7 +5,7 @@
 
         <variable
             name="bean"
-            type="com.yiya.qq.model.bean.TouTiaoBean.DataBean" />
+            type="com.yiya.qq.model.bean.TouTiaoBean" />
     </data>
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{bean.title,default=title}"
+            android:text="@{bean.getTitle,default=title}"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>

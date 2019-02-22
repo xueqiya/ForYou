@@ -8,11 +8,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.annotation.NonNull;
 
 import com.yiya.qq.api.BaseObserver;
+import com.yiya.qq.api.ListBaseObserver;
 import com.yiya.qq.api.NetWorkManager;
 import com.yiya.qq.base.BaseViewModel;
+import com.yiya.qq.model.bean.ListBaseBean;
 import com.yiya.qq.model.bean.TouTiaoBean;
 import com.yiya.qq.utils.L;
 import com.yiya.qq.utils.RxUtils;
+
+import java.util.List;
 
 /**
  * @author xueqi
@@ -25,15 +29,16 @@ public class HomeViewModel extends BaseViewModel implements LifecycleObserver {
         super(application);
     }
 
-    public MutableLiveData<TouTiaoBean> getTouTiao() {
-        final MutableLiveData<TouTiaoBean> listData = new MutableLiveData<>();
-        NetWorkManager.getRequest().toutiao("top", "060b5543a5db2cf5b99279f837738df2")
+    public MutableLiveData<List<TouTiaoBean>> getTouTiao() {
+        final MutableLiveData<List<TouTiaoBean>> listData = new MutableLiveData<>();
+        NetWorkManager.getRequest().toutiao(1)
                 .compose(RxUtils.bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
-                .subscribe(new BaseObserver<TouTiaoBean>() {
+                .subscribe(new ListBaseObserver<TouTiaoBean>() {
+
                     @Override
-                    public void onSuccess(TouTiaoBean touTiaoBean) {
-                        listData.postValue(touTiaoBean);
+                    public void onSuccess(List<TouTiaoBean> result) {
+                        listData.postValue(result);
                     }
 
                     @Override
