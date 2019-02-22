@@ -2,10 +2,12 @@ package com.yiya.qq;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
+import android.widget.Toolbar;
 
 import com.yiya.qq.adapter.ViewPagerAdapter;
 import com.yiya.qq.base.BaseActivity;
@@ -27,16 +29,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showContentView();
-
-        bindingView.viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
-        showFragment(0);
     }
 
     @Override
     public void initView() {
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
         initFragment();
         initListener();
+        bindingView.viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
+        bindingView.viewPage.setOffscreenPageLimit(4);
+        showFragment(0);
     }
 
     private void initFragment() {

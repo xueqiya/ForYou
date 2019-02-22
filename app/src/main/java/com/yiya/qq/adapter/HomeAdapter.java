@@ -5,8 +5,8 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yiya.qq.databinding.ToutiaoItemBinding;
-import com.yiya.qq.model.bean.TouTiaoBean;
+import com.yiya.qq.databinding.HomeItemBinding;
+import com.yiya.qq.model.bean.HomeBean;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ import java.util.List;
  * create at 2019/2/20	15:43
  * description:
  */
-public class TouTiaoAdapter extends BaseQuickAdapter<TouTiaoBean, BaseViewHolder> {
+public class HomeAdapter extends BaseQuickAdapter<HomeBean, BaseViewHolder> {
 
-    public TouTiaoAdapter(int layoutResId, @Nullable List<TouTiaoBean> data) {
+    public HomeAdapter(int layoutResId, @Nullable List<HomeBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TouTiaoBean item) {
-        ToutiaoItemBinding binding = DataBindingUtil.bind(helper.itemView);
+    protected void convert(BaseViewHolder helper, HomeBean item) {
+        HomeItemBinding binding = DataBindingUtil.bind(helper.itemView);
         binding.setBean(item);
         binding.executePendingBindings();
     }

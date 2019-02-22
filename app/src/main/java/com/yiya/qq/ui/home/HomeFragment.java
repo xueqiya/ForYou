@@ -1,19 +1,19 @@
 package com.yiya.qq.ui.home;
 
-import androidx.lifecycle.Observer;
-
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.yiya.qq.R;
-import com.yiya.qq.adapter.TouTiaoAdapter;
+import com.yiya.qq.adapter.HomeAdapter;
 import com.yiya.qq.base.BaseFragment;
 import com.yiya.qq.databinding.FragmentHomeBinding;
+import com.yiya.qq.utils.L;
 import com.yiya.qq.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,8 +23,8 @@ import java.util.ArrayList;
  * description:
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
-    private ArrayList touTiaoList = new ArrayList();
-    private TouTiaoAdapter touTiaoAdapter;
+    private List homeList;
+    private HomeAdapter homeAdapter;
 
     @Override
     public int setContent() {
@@ -33,29 +33,29 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void initView() {
+        homeList = new ArrayList();
         bindingView.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        touTiaoAdapter = new TouTiaoAdapter(R.layout.toutiao_item, touTiaoList);
-        bindingView.recycleView.setAdapter(touTiaoAdapter);
-        viewModel.getTouTiao();
+        homeAdapter = new HomeAdapter(R.layout.home_item, homeList);
+        bindingView.recycleView.setAdapter(homeAdapter);
+        viewModel.getHome();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        viewModel.getTouTiao().observe(this, touTiaoBeans -> {
+        viewModel.getHome().observe(this, homeBeans -> {
             showContentView();
-            if (touTiaoBeans == null) {
+            if (homeBeans == null) {
                 showError();
                 return;
             }
-            touTiaoAdapter.addData(touTiaoBeans);
-            touTiaoAdapter.notifyDataSetChanged();
+            homeAdapter.addData(homeBeans);
+            homeAdapter.notifyDataSetChanged();
         });
     }
 
     @Override
     protected void onRefresh() {
-        viewModel.getTouTiao();
+        viewModel.getHome();
     }
 }

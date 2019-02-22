@@ -3,10 +3,12 @@ package com.yiya.qq.base;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
 import android.os.Build;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.ActionBar;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +27,11 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     protected VM viewModel;
     // 布局view
     protected SV bindingView;
+    // 是否显示返回按钮
+    private boolean backBt = true;
     private View refresh;
     private View loadingView;
-    private ActivityBaseBinding mBaseBinding;
+    protected ActivityBaseBinding mBaseBinding;
 
     protected <T extends View> T getView(int id) {
         return (T) findViewById(id);
@@ -74,17 +78,14 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         if (actionBar != null) {
             //去除默认Title显示
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
             //actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
-        mBaseBinding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    finishAfterTransition();
-                } else {
-                    onBackPressed();
-                }
+        mBaseBinding.toolBar.setNavigationOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                onBackPressed();
             }
         });
     }
@@ -102,6 +103,10 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     @Override
     public void setTitle(CharSequence text) {
         mBaseBinding.toolBar.setTitle(text);
+    }
+
+    public void setbackBt(boolean b) {
+        this.backBt = b;
     }
 
     protected void showLoading() {
