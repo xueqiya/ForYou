@@ -27,14 +27,12 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     protected VM viewModel;
     // 布局view
     protected SV bindingView;
-    // 是否显示返回按钮
-    private boolean backBt = true;
     private View refresh;
     private View loadingView;
     protected ActivityBaseBinding mBaseBinding;
 
-    protected <T extends View> T getView(int id) {
-        return (T) findViewById(id);
+    protected  View getView(int id) {
+        return  findViewById(id);
     }
 
     @Override
@@ -103,10 +101,6 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     @Override
     public void setTitle(CharSequence text) {
         mBaseBinding.toolBar.setTitle(text);
-    }
-
-    public void setbackBt(boolean b) {
-        this.backBt = b;
     }
 
     protected void showLoading() {

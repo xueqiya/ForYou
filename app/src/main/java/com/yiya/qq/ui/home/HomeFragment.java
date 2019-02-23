@@ -23,7 +23,6 @@ import java.util.List;
  * description:
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
-    private List homeList;
     private HomeAdapter homeAdapter;
 
     @Override
@@ -33,7 +32,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void initView() {
-        homeList = new ArrayList();
+        List homeList = new ArrayList();
         bindingView.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         homeAdapter = new HomeAdapter(R.layout.home_item, homeList);
         bindingView.recycleView.setAdapter(homeAdapter);

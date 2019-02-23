@@ -1,4 +1,4 @@
-package com.yiya.qq;
+package com.yiya.qq.ui;
 
 import android.os.Bundle;
 
@@ -7,8 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.View;
-import android.widget.Toolbar;
 
+import com.yiya.qq.viewmodel.MainViewModel;
+import com.yiya.qq.R;
 import com.yiya.qq.adapter.ViewPagerAdapter;
 import com.yiya.qq.base.BaseActivity;
 import com.yiya.qq.databinding.ActivityMainBinding;

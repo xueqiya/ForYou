@@ -1,4 +1,4 @@
-package com.yiya.qq;
+package com.yiya.qq.viewmodel;
 
 import android.app.Application;
 

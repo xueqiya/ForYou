@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {HomeBean.class}, version = 1)
+@Database(entities = {HomeBean.class}, exportSchema = false,version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase mAppDatabase;
 

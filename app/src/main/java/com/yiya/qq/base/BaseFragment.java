@@ -84,8 +84,8 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
         }
     }
 
-    protected <T extends View> T getView(int id) {
-        return (T) getView().findViewById(id);
+    protected View getView(int id) {
+        return  getView().findViewById(id);
     }
 
     protected void showLoading() {
