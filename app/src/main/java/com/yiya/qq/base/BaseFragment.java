@@ -57,13 +57,10 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // 点击加载失败布局
-        mRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                L.d("点击刷新");
-                showLoading();
-                onRefresh();
-            }
+        mRefresh.setOnClickListener(v -> {
+            L.d("点击刷新");
+            showLoading();
+            onRefresh();
         });
         showLoading();
         initViewModel();
@@ -119,7 +116,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
         if (loadingView.getVisibility() != View.GONE) {
             loadingView.setVisibility(View.GONE);
         }
-        if (bindingView.getRoot().getVisibility() != View.VISIBLE) {
+        if (bindingView.getRoot().getVisibility() != View.GONE) {
             bindingView.getRoot().setVisibility(View.GONE);
         }
     }

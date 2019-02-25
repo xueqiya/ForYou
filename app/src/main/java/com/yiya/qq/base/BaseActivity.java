@@ -134,7 +134,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         if (loadingView.getVisibility() != View.GONE) {
             loadingView.setVisibility(View.GONE);
         }
-        if (bindingView.getRoot().getVisibility() != View.VISIBLE) {
+        if (bindingView.getRoot().getVisibility() != View.GONE) {
             bindingView.getRoot().setVisibility(View.GONE);
         }
     }

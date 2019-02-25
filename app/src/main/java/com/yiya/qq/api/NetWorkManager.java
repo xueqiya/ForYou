@@ -40,7 +40,9 @@ public class NetWorkManager {
     public void init() {
         // 初始化okhttp
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(HttpURLConnection.HTTP_CLIENT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20,TimeUnit.SECONDS)
                 .addInterceptor(new LoggingInterceptor())
                 .build();
 
