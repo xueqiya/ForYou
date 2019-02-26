@@ -1,4 +1,4 @@
-package com.yiya.qq.model.bean;
+package com.yiya.qq.bean;
 
 public class BaseBean<T> {
 

@@ -1,4 +1,4 @@
-package com.yiya.qq.api;
+package com.yiya.qq.http.api;
 
 /**
  * @author xueqi

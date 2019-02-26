@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yiya.qq.databinding.HomeItemBinding;
-import com.yiya.qq.model.bean.HomeBean;
+import com.yiya.qq.bean.HomeBean;
 
 import java.util.List;
 

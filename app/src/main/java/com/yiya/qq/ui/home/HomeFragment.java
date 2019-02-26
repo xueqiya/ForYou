@@ -1,16 +1,21 @@
 package com.yiya.qq.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yiya.qq.R;
 import com.yiya.qq.adapter.HomeAdapter;
 import com.yiya.qq.base.BaseFragment;
+import com.yiya.qq.bean.HomeBean;
 import com.yiya.qq.databinding.FragmentHomeBinding;
 import com.yiya.qq.utils.L;
 import com.yiya.qq.viewmodel.HomeViewModel;
+import com.yiya.qq.webview.WebActitvity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,7 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
     private HomeAdapter homeAdapter;
+    private List<HomeBean> homeList;
 
     @Override
     public int setContent() {
@@ -32,9 +38,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void initView() {
-        List homeList = new ArrayList();
+        homeList = new ArrayList();
         bindingView.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         homeAdapter = new HomeAdapter(R.layout.home_item, homeList);
+        homeAdapter.setOnItemClickListener(itemClickListener);
         bindingView.recycleView.setAdapter(homeAdapter);
         viewModel.getHome();
     }
@@ -48,10 +55,18 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 showError();
                 return;
             }
-            homeAdapter.addData(homeBeans);
+            homeList.addAll(homeBeans);
             homeAdapter.notifyDataSetChanged();
         });
     }
+
+    private HomeAdapter.OnItemClickListener itemClickListener = (adapter, view, position) -> {
+        homeList.get(position).getId();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", "资讯");
+        bundle.putString("url", homeList.get(position).getImg());
+        startIntent(bundle, WebActitvity.class);
+    };
 
     @Override
     protected void onRefresh() {

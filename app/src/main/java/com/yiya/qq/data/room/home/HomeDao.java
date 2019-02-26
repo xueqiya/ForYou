@@ -1,8 +1,6 @@
-package com.yiya.qq.model.room.home;
+package com.yiya.qq.data.room.home;
 
-import com.yiya.qq.model.bean.HomeBean;
-
-import java.util.List;
+import com.yiya.qq.bean.HomeBean;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

@@ -6,14 +6,10 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 import androidx.annotation.NonNull;
 
-import com.yiya.qq.api.ListBaseObserver;
-import com.yiya.qq.api.NetWorkManager;
-import com.yiya.qq.app.App;
+import com.yiya.qq.data.model.HomeModel;
+import com.yiya.qq.http.RequestImpl;
 import com.yiya.qq.base.BaseViewModel;
-import com.yiya.qq.model.bean.HomeBean;
-import com.yiya.qq.model.room.AppDatabase;
-import com.yiya.qq.utils.L;
-import com.yiya.qq.utils.RxUtils;
+import com.yiya.qq.bean.HomeBean;
 
 import java.util.List;
 
@@ -24,31 +20,27 @@ import java.util.List;
  * description:
  */
 public class HomeViewModel extends BaseViewModel implements LifecycleObserver {
+
+    private final HomeModel model;
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
+        model = new HomeModel();
     }
 
     public MutableLiveData<List<HomeBean>> getHome() {
         final MutableLiveData<List<HomeBean>> listData = new MutableLiveData<>();
-        NetWorkManager.getRequest().home(1)
-                .compose(RxUtils.bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new ListBaseObserver<HomeBean>() {
+        model.getHome(new RequestImpl() {
+            @Override
+            public void loadSuccess(Object object) {
+                listData.setValue((List<HomeBean>) object);
+            }
 
-                    @Override
-                    public void onSuccess(List<HomeBean> result) {
-                        listData.postValue(result);
-                        for (int i = 0; i < result.size(); i++) {
-                            AppDatabase.getDatabase().homeDao().insertTitle(result.get(i));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        listData.setValue(null);
-                        L.e("错误代码" + code + "   " + "错误信息" + errorMessage);
-                    }
-                });
+            @Override
+            public void loadFailed() {
+                listData.setValue(null);
+            }
+        });
         return listData;
     }
 }

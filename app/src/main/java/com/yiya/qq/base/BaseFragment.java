@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.yiya.qq.R;
+import com.yiya.qq.app.App;
 import com.yiya.qq.utils.ClassUtil;
 import com.yiya.qq.utils.L;
 
@@ -119,6 +122,12 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
         if (bindingView.getRoot().getVisibility() != View.GONE) {
             bindingView.getRoot().setVisibility(View.GONE);
         }
+    }
+    protected void startIntent(Bundle bundle,Class c){
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        intent.setClass(getActivity(), c);
+        startActivity(intent);
     }
 
     /**

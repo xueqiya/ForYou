@@ -1,11 +1,11 @@
 package com.yiya.qq.app;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.yiya.qq.api.NetWorkManager;
-import com.yiya.qq.model.room.AppDatabase;
-
-import androidx.room.Room;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+import com.yiya.qq.http.api.NetWorkManager;
 
 /**
  * @author xueqi
@@ -16,6 +16,7 @@ import androidx.room.Room;
 public class App extends Application {
 
     private static App qqApplication;
+    private RefWatcher refWatcher;
 
     public static App getInstance() {
         return qqApplication;
@@ -25,8 +26,11 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         qqApplication = this;
+        refWatcher = LeakCanary.install(this);
         NetWorkManager.getInstance().init();
-
-
+    }
+    public static RefWatcher getRefWatcher(Context context){
+        App application = (App)context.getApplicationContext();
+        return application.refWatcher;
     }
 }

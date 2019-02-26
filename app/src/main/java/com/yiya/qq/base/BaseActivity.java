@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yiya.qq.R;
+import com.yiya.qq.app.App;
 import com.yiya.qq.databinding.ActivityBaseBinding;
 import com.yiya.qq.dialog.DefaultProgress;
 import com.yiya.qq.utils.ClassUtil;
@@ -38,7 +40,8 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        RefWatcher refWatcher = App.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 
     @Override
@@ -76,7 +79,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         if (actionBar != null) {
             //去除默认Title显示
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
             //actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
         mBaseBinding.toolBar.setNavigationOnClickListener(v -> {

@@ -1,7 +1,7 @@
-package com.yiya.qq.api;
+package com.yiya.qq.http.api;
 
-import com.yiya.qq.model.bean.ListBaseBean;
-import com.yiya.qq.model.bean.HomeBean;
+import com.yiya.qq.bean.ListBaseBean;
+import com.yiya.qq.bean.HomeBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;
