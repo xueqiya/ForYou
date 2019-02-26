@@ -13,27 +13,45 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "Home")
 public class HomeBean {
+
     /**
-     * id : 1147
-     * title : 爆竹声声辞旧岁，欢天喜地迎新年
-     * createdate : 2019-02-01 09:59:12
-     * img : https://img.qmwm777.com/3/upload/image/201902/c4680483874d45cfa03e643f4ace3a9c_750x300.jpg
-     * readnum : 625
+     * id : 2235
+     * title : 办公椅2-JP0225030
+     * img : https://img.qmwm777.com/3/upload/image/201902/a07a2f76a6864c41b4f23a70aeeee4c7_750x500.jpg
+     * inventory : 0
+     * sales : 200
+     * totalInventory : 200
+     * period : 30
+     * rate : 2.81
+     * inprice : 234.0
+     * saledate : 2019-02-25 15:50:23
+     * stopsaledate : 2019-02-25 16:52:15
+     * goodsType : 4
      */
     @PrimaryKey
     private int id;
-
     @ColumnInfo
     private String title;
-
-    @ColumnInfo
-    private String createdate;
-
     @Ignore
     private String img;
-
     @Ignore
-    private int readnum;
+    private int inventory;
+    @Ignore
+    private int sales;
+    @Ignore
+    private int totalInventory;
+    @Ignore
+    private int period;
+    @Ignore
+    private double rate;
+    @Ignore
+    private double inprice;
+    @Ignore
+    private String saledate;
+    @Ignore
+    private String stopsaledate;
+    @Ignore
+    private int goodsType;
 
     public int getId() {
         return id;
@@ -51,14 +69,6 @@ public class HomeBean {
         this.title = title;
     }
 
-    public String getCreatedate() {
-        return createdate;
-    }
-
-    public void setCreatedate(String createdate) {
-        this.createdate = createdate;
-    }
-
     public String getImg() {
         return img;
     }
@@ -67,11 +77,75 @@ public class HomeBean {
         this.img = img;
     }
 
-    public int getReadnum() {
-        return readnum;
+    public int getInventory() {
+        return inventory;
     }
 
-    public void setReadnum(int readnum) {
-        this.readnum = readnum;
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
+    }
+
+    public int getTotalInventory() {
+        return totalInventory;
+    }
+
+    public void setTotalInventory(int totalInventory) {
+        this.totalInventory = totalInventory;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public double getInprice() {
+        return inprice;
+    }
+
+    public void setInprice(double inprice) {
+        this.inprice = inprice;
+    }
+
+    public String getSaledate() {
+        return saledate;
+    }
+
+    public void setSaledate(String saledate) {
+        this.saledate = saledate;
+    }
+
+    public String getStopsaledate() {
+        return stopsaledate;
+    }
+
+    public void setStopsaledate(String stopsaledate) {
+        this.stopsaledate = stopsaledate;
+    }
+
+    public int getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(int goodsType) {
+        this.goodsType = goodsType;
     }
 }

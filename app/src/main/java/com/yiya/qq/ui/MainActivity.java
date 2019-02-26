@@ -6,7 +6,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yiya.qq.viewmodel.MainViewModel;
 import com.yiya.qq.R;
@@ -50,8 +52,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         homeFragment = new HomeFragment();
         mineFragment = new MineFragment();
         fragments.add(homeFragment);
-        fragments.add(new HomeFragment());
-        fragments.add(new HomeFragment());
+        fragments.add(new MineFragment());
+        fragments.add(new MineFragment());
         fragments.add(mineFragment);
     }
 
@@ -123,5 +125,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 setTitle("我的");
                 break;
         }
+    }
+
+    private long firstTime = 0;
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                firstTime = secondTime;
+                return true;
+            } else {
+                finish();
+            }
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 }

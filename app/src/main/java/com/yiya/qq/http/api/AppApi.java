@@ -15,7 +15,7 @@ import retrofit2.http.Query;
  */
 public interface AppApi {
 
-    @POST("/api/find/newsRe")
+    @POST("/api/goods/list")
     Observable<ListBaseBean<HomeBean>> home(@Query("pageNum") int pageNum);
 
 }

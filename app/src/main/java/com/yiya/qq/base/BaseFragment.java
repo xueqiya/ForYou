@@ -69,8 +69,6 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
         initViewModel();
         //让ViewModel拥有View的生命周期感应
         getLifecycle().addObserver(viewModel);
-        //注入RxLifecycle生命周期
-        viewModel.injectLifecycleProvider(this);
         initView();
     }
 
@@ -85,7 +83,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
     }
 
     protected View getView(int id) {
-        return  getView().findViewById(id);
+        return getView().findViewById(id);
     }
 
     protected void showLoading() {
@@ -123,9 +121,12 @@ public abstract class BaseFragment<SV extends ViewDataBinding, VM extends BaseVi
             bindingView.getRoot().setVisibility(View.GONE);
         }
     }
-    protected void startIntent(Bundle bundle,Class c){
+
+    protected void startIntent(Class c, @Nullable Bundle bundle) {
         Intent intent = new Intent();
-        intent.putExtras(bundle);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
         intent.setClass(getActivity(), c);
         startActivity(intent);
     }

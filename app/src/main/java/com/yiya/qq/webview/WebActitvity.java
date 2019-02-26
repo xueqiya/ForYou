@@ -3,6 +3,8 @@ package com.yiya.qq.webview;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +24,7 @@ public class WebActitvity extends BaseActivity<ActivityWebBinding, WebViewModel>
     private String title;
     private String url;
     private WebSettings settings;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,8 @@ public class WebActitvity extends BaseActivity<ActivityWebBinding, WebViewModel>
 
     @Override
     public void initView() {
-        settings = bindingView.webView.getSettings();
+        webView = bindingView.webView;
+        settings = webView.getSettings();
         //支持javascript
         settings.setJavaScriptEnabled(true);
         // 设置可以支持缩放
@@ -46,9 +50,9 @@ public class WebActitvity extends BaseActivity<ActivityWebBinding, WebViewModel>
 
         setTitle(title);
         L.d("web地址：" + url);
-        bindingView.webView.loadUrl(url);
+        webView.loadUrl(url);
 
-        bindingView.webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
@@ -61,5 +65,10 @@ public class WebActitvity extends BaseActivity<ActivityWebBinding, WebViewModel>
                 showContentView();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

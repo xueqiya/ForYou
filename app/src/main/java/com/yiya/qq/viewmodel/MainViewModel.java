@@ -2,7 +2,6 @@ package com.yiya.qq.viewmodel;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.annotation.NonNull;
 
