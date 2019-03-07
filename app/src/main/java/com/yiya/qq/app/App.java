@@ -16,7 +16,6 @@ import com.yiya.qq.http.api.NetWorkManager;
 public class App extends Application {
 
     private static App qqApplication;
-    private RefWatcher refWatcher;
 
     public static App getInstance() {
         return qqApplication;
@@ -26,11 +25,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         qqApplication = this;
-        refWatcher = LeakCanary.install(this);
         NetWorkManager.getInstance().init();
-    }
-    public static RefWatcher getRefWatcher(Context context){
-        App application = (App)context.getApplicationContext();
-        return application.refWatcher;
     }
 }

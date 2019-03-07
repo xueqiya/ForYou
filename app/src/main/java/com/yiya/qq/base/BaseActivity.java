@@ -40,8 +40,6 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RefWatcher refWatcher = App.getRefWatcher(this);
-        refWatcher.watch(this);
     }
 
     @Override

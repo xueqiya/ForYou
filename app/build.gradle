@@ -41,17 +41,26 @@ dependencies {
     //For Room
     implementation 'androidx.room:room-runtime:2.0.0-beta01'
     annotationProcessor 'androidx.room:room-compiler:2.0.0-beta01'
+    //rxpermissions2
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    //rxjava2
     implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //rxlifecycle
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    //BaseRecyclerViewAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-
+    //leak
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //evenbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
 }
