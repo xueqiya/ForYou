@@ -1,9 +1,11 @@
 package com.yiya.qq.base;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import android.content.Intent;
 import android.os.Build;
 
 import androidx.fragment.app.DialogFragment;
@@ -33,8 +35,8 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
     private View loadingView;
     protected ActivityBaseBinding mBaseBinding;
 
-    protected  View getView(int id) {
-        return  findViewById(id);
+    protected View getView(int id) {
+        return findViewById(id);
     }
 
     @Override
@@ -152,6 +154,15 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
         if (defaultProgress != null) {
             defaultProgress.dismiss();
         }
+    }
+
+    protected void startIntent(Class c, @Nullable Bundle bundle) {
+        Intent intent = new Intent();
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        intent.setClass(this, c);
+        startActivity(intent);
     }
 
     /**

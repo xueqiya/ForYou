@@ -2,9 +2,14 @@ package com.yiya.qq.bean;
 
 public class BaseBean<T> {
 
+    /**
+     * code : 200
+     * msg : 登陆成功
+     * data : {"uid":"xueqi"}
+     */
+
     private int code;
-    private String message;
-    private String status;
+    private String msg;
     private T data;
 
     public int getCode() {
@@ -15,20 +20,12 @@ public class BaseBean<T> {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {

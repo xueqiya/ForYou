@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.yiya.qq.viewmodel.RegisterViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context=".ui.LoginActivity">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/uid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入账号"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@={viewModel.uid}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入密码"
+                android:imeActionId="6"
+                android:imeActionLabel="请输入密码"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@={viewModel.pwd}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="register"
+            android:text="注册"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+</layout>

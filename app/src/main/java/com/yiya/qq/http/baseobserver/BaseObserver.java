@@ -1,7 +1,10 @@
 package com.yiya.qq.http.baseobserver;
 
+import com.yiya.qq.app.App;
 import com.yiya.qq.bean.BaseBean;
 import com.yiya.qq.http.api.ApiException;
+import com.yiya.qq.utils.L;
+import com.yiya.qq.utils.T;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -19,7 +22,8 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
         if (baseBean.getCode() == 200) {
             onSuccess(baseBean.getData());
         } else {
-            onFailure(baseBean.getCode(), new ApiException(baseBean.getMessage()).getMessage());
+            com.yiya.qq.utils.T.showShort(App.getInstance(), baseBean.getMsg());
+            onFailure(baseBean.getCode(), new ApiException(baseBean.getMsg()).getMessage());
         }
     }
 
