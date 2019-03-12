@@ -1,4 +1,4 @@
-package com.yiya.qq.ui;
+package com.yiya.qq.ui.login;
 
 import android.os.Bundle;
 import android.view.View;
@@ -27,8 +27,10 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding, Regi
     }
 
     public void register(View v) {
+        showProgress();
         viewModel.register().observe(this, loginBean -> {
             if (loginBean != null) {
+                hideProgress();
                 T.showShort(this, "注册成功！");
                 this.finish();
             }

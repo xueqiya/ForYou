@@ -2,7 +2,7 @@ package com.yiya.qq.http.api;
 
 import com.yiya.qq.bean.BaseBean;
 import com.yiya.qq.bean.ListBaseBean;
-import com.yiya.qq.bean.HomeBean;
+import com.yiya.qq.bean.NoteBean;
 import com.yiya.qq.bean.LoginBean;
 
 import io.reactivex.Observable;
@@ -17,9 +17,6 @@ import retrofit2.http.Query;
  */
 public interface AppApi {
 
-    @POST("/api/goods/list")
-    Observable<ListBaseBean<HomeBean>> home(@Query("pageNum") int pageNum);
-
     //登陆
     @POST("/appApi/login")
     Observable<BaseBean<LoginBean>> login(@Query("uid") String uid,
@@ -28,6 +25,14 @@ public interface AppApi {
     //注册
     @POST("/appApi/register")
     Observable<BaseBean<LoginBean>> register(@Query("uid") String uid,
-                                          @Query("pwd") String pwd);
+                                             @Query("pwd") String pwd);
 
+    //通知
+    @POST("/appApi/note")
+    Observable<ListBaseBean<NoteBean>> notice(@Query("pageNum") int pageNum,
+                                              @Query("size") int size);
+
+    //通知详情
+    @POST("/appApi/findNoteBeanById")
+    Observable<BaseBean<NoteBean>> findNoteBeanById(@Query("id") int id);
 }

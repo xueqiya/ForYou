@@ -2,7 +2,6 @@ package com.yiya.qq.ui;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,10 +35,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
+        mBaseBinding.back.setVisibility(View.INVISIBLE);
         initFragment();
         initListener();
         bindingView.viewPage.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
@@ -52,16 +48,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         homeFragment = new HomeFragment();
         mineFragment = new MineFragment();
         fragments.add(homeFragment);
-        fragments.add(new MineFragment());
-        fragments.add(new MineFragment());
         fragments.add(mineFragment);
     }
 
     private void initListener() {
         bindingView.viewPage.addOnPageChangeListener(viewPagerListener);
         bindingView.home.setOnClickListener(clickListener);
-        bindingView.market.setOnClickListener(clickListener);
-        bindingView.transation.setOnClickListener(clickListener);
         bindingView.mine.setOnClickListener(clickListener);
     }
 
@@ -89,14 +81,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 case R.id.home:
                     showFragment(0);
                     break;
-                case R.id.market:
-                    showFragment(1);
-                    break;
-                case R.id.transation:
-                    showFragment(2);
-                    break;
                 case R.id.mine:
-                    showFragment(3);
+                    showFragment(2);
                     break;
             }
         }
@@ -110,16 +96,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 setTitle("首页");
                 break;
             case 1:
-                bindingView.viewPage.setCurrentItem(1);
-                bindingView.market.callOnClick();
-                setTitle("");
-                break;
-            case 2:
-                bindingView.viewPage.setCurrentItem(2);
-                bindingView.transation.callOnClick();
-                setTitle("");
-                break;
-            case 3:
                 bindingView.viewPage.setCurrentItem(3);
                 bindingView.mine.callOnClick();
                 setTitle("我的");
@@ -128,6 +104,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     private long firstTime = 0;
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {

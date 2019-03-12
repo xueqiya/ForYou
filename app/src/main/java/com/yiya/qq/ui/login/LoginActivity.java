@@ -1,4 +1,4 @@
-package com.yiya.qq.ui;
+package com.yiya.qq.ui.login;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.View;
 import com.yiya.qq.R;
 import com.yiya.qq.base.BaseActivity;
 import com.yiya.qq.databinding.ActivityLoginBinding;
+import com.yiya.qq.ui.MainActivity;
 import com.yiya.qq.viewmodel.LoginViewModel;
 
 import androidx.appcompat.app.ActionBar;
@@ -33,8 +34,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     public void login(View v) {
+        showProgress();
         viewModel.login().observe(this, loginBean -> {
             if (loginBean != null) {
+                hideProgress();
                 startIntent(MainActivity.class, null);
             }
         });
@@ -42,11 +45,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
     public void register(View v) {
         startIntent(RegisterActivity.class, null);
-        viewModel.login().observe(this, loginBean -> {
-            if (loginBean != null) {
-                startIntent(MainActivity.class, null);
-            }
-        });
     }
 }
 

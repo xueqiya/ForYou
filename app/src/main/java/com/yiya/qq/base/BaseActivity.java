@@ -72,15 +72,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
      * 设置titlebar
      */
     protected void setToolBar() {
-        setSupportActionBar(mBaseBinding.toolBar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            //去除默认Title显示
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
-        }
-        mBaseBinding.toolBar.setNavigationOnClickListener(v -> {
+        mBaseBinding.back.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 finishAfterTransition();
             } else {
@@ -101,7 +93,7 @@ public abstract class BaseActivity<SV extends ViewDataBinding, VM extends BaseVi
 
     @Override
     public void setTitle(CharSequence text) {
-        mBaseBinding.toolBar.setTitle(text);
+        mBaseBinding.title.setText(text);
     }
 
     protected void showLoading() {

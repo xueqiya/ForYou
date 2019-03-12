@@ -5,10 +5,10 @@
 
         <variable
             name="bean"
-            type="com.yiya.qq.bean.HomeBean" />
+            type="com.yiya.qq.bean.NoteBean" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -18,11 +18,11 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_margin="@dimen/dp_40"
             android:text="@{bean.title,default=title}"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <include layout="@layout/item_line" />
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

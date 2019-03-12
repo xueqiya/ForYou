@@ -33,7 +33,7 @@ public class LoginViewModel extends BaseViewModel {
     public MutableLiveData<LoginBean> login() {
         final MutableLiveData<LoginBean> data = new MutableLiveData<>();
         L.d("用户名：" + uid.get() + "密码：" + pwd.get());
-        NetWorkManager.getRequest().login("xueqi", "123")
+        NetWorkManager.getRequest().login(uid.get(), pwd.get())
                 .compose(RxUtils.schedulersTransformer())
                 .subscribe(new BaseObserver<LoginBean>() {
 
