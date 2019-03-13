@@ -7,7 +7,7 @@ package com.yiya.qq.utils;
  * description:
  */
 public class AppConstants {
-//    public static final String BASE_URL = "http://192.168.1.195:8080/";
-    public static final String BASE_URL = "http://144.202.127.3:8080/";
+    public static final String BASE_URL = "http://192.168.1.195:8080/";
+//    public static final String BASE_URL = "http://144.202.127.3:8080/";
     public static final String TAG = "日常打log";
 }
