@@ -1,44 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.yiya.foryou.viewmodel.DetailViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.home.DetailActivity">
+        android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="center_vertical"
+            android:hint="请输入标题"
+            android:padding="@dimen/dp_10"
+            android:text="@={viewModel.title}"
+            android:textColorHint="#19443D"
+            android:textSize="@dimen/sp_14" />
+
+
+        <EditText
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="top|left"
+            android:hint="请输入内容"
+            android:padding="@dimen/dp_10"
+            android:text="@={viewModel.details}"
+            android:textColorHint="#19443D"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_10"
+            android:textColor="#19443D" />
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:padding="20dp" />
+            android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="20dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="cancel"
-                android:text="取消" />
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="@drawable/circle_bg"
+            android:onClick="update"
+            android:text="更新"
+            android:textColor="#19443D"
+            android:textSize="@dimen/sp_14" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="confirm"
-                android:text="保存" />
-        </LinearLayout>
     </LinearLayout>
 </layout>

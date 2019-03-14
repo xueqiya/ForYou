@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.yiya.foryou.viewmodel.AddViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="center_vertical"
+            android:hint="请输入标题"
+            android:padding="@dimen/dp_10"
+            android:text="@={viewModel.title}"
+            android:textColorHint="#19443D"
+            android:textSize="@dimen/sp_14" />
+
+
+        <EditText
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="top|left"
+            android:hint="请输入内容"
+            android:padding="@dimen/dp_10"
+            android:text="@={viewModel.details}"
+            android:textColorHint="#19443D"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_66fce4ec_r5_k"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_10"
+            android:textColor="#19443D" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="@drawable/circle_bg"
+            android:onClick="add"
+            android:text="添加"
+            android:textColor="#19443D"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+</layout>

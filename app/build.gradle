@@ -3,8 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.yiya.qq"
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -63,5 +62,8 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //evenbus
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    //路径绘制
+    implementation 'com.yanzhikai:TextPathView:0.1.3'
 
 }

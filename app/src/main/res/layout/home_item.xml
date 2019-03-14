@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="bean"
-            type="com.yiya.qq.bean.NoteBean" />
+            type="com.yiya.foryou.bean.NoteBean" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:orientation="vertical">
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="#eeeeee"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:contentPadding="5dp">
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_40"
-            android:text="@{bean.title,default=title}"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:layout_margin="@dimen/dp_5"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_5">
 
-        <include layout="@layout/item_line" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@{bean.title}"
+                android:textColor="#000000"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{bean.details}"
+                android:textSize="@dimen/sp_12" />
+
+
+            <TextView
+                android:id="@+id/tv_iu_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="@{bean.time}"
+                android:textColor="#d4237a"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
 </layout>

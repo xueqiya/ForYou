@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">心❤动</string>
+    <string name="app_name">For YOU</string>
     <string name="splash_img">启动图片</string>
     <string name="load_error">加载失败,点击重试</string>
     <string name="loading">正在加载</string>
