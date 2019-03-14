@@ -1,2 +1,3 @@
 # QiQi
-MVVM 模式开发框架
+MVVM 模式框架
+ForYou记事本
