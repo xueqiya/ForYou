@@ -3,9 +3,9 @@ package com.yiya.foryou.viewmodel;
 import android.app.Application;
 
 import com.yiya.foryou.base.BaseViewModel;
+import com.yiya.foryou.bean.OkBean;
+import com.yiya.foryou.data.model.NoteModel;
 import com.yiya.foryou.http.api.NetWorkManager;
-import com.yiya.foryou.http.baseobserver.BaseObserver;
-import com.yiya.foryou.http.baseobserver.NoDataBaseObserver;
 import com.yiya.foryou.utils.RxUtils;
 
 import androidx.annotation.NonNull;
@@ -20,30 +20,17 @@ import androidx.lifecycle.MutableLiveData;
  * description:
  */
 public class AddViewModel extends BaseViewModel {
-    public AddViewModel(@NonNull Application application) {
-        super(application);
-    }
 
+    private final NoteModel noteModel;
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> details = new ObservableField<>();
 
-    public MutableLiveData<String> Adddata = new MutableLiveData<>();
+    public AddViewModel(@NonNull Application application) {
+        super(application);
+        noteModel = new NoteModel();
+    }
 
-    public MutableLiveData add(String uid, String date) {
-        NetWorkManager.getRequest().saveNote(uid, date, title.get(), details.get())
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new NoDataBaseObserver() {
-
-                    @Override
-                    public void onSuccess(String success) {
-                        Adddata.setValue(success);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        Adddata.setValue(null);
-                    }
-                });
-        return Adddata;
+    public MutableLiveData<OkBean> add(String uid, String date) {
+        return noteModel.add(uid, date, title.get(), details.get());
     }
 }

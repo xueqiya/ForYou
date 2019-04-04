@@ -4,14 +4,16 @@ import android.app.Application;
 
 import com.yiya.foryou.base.BaseViewModel;
 import com.yiya.foryou.bean.LoginBean;
+import com.yiya.foryou.data.model.LoginModel;
 import com.yiya.foryou.http.api.NetWorkManager;
-import com.yiya.foryou.http.baseobserver.BaseObserver;
 import com.yiya.foryou.utils.L;
 import com.yiya.foryou.utils.RxUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -22,32 +24,16 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class LoginViewModel extends BaseViewModel {
 
+    public ObservableField<String> uid = new ObservableField<>();
+    public ObservableField<String> pwd = new ObservableField<>();
+    private final LoginModel loginModel;
+
     public LoginViewModel(@NonNull Application application) {
         super(application);
+        loginModel = new LoginModel();
     }
 
-    public  ObservableField<String> uid = new ObservableField<>();
-
-    public  ObservableField<String> pwd = new ObservableField<>();
-
     public MutableLiveData<LoginBean> login() {
-        final MutableLiveData<LoginBean> data = new MutableLiveData<>();
-        L.d("用户名：" + uid.get() + "密码：" + pwd.get());
-        NetWorkManager.getRequest().login(uid.get(), pwd.get())
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new BaseObserver<LoginBean>() {
-
-                    @Override
-                    public void onSuccess(LoginBean loginBean) {
-                        data.setValue(loginBean);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        data.setValue(null);
-                    }
-
-                });
-        return data;
+        return loginModel.login(uid.get(), pwd.get());
     }
 }

@@ -3,17 +3,12 @@ package com.yiya.foryou.viewmodel;
 import android.app.Application;
 
 import com.yiya.foryou.base.BaseViewModel;
-import com.yiya.foryou.bean.LoginBean;
-import com.yiya.foryou.http.api.NetWorkManager;
-import com.yiya.foryou.http.baseobserver.BaseObserver;
-import com.yiya.foryou.http.baseobserver.NoDataBaseObserver;
-import com.yiya.foryou.utils.L;
-import com.yiya.foryou.utils.RxUtils;
+import com.yiya.foryou.bean.OkBean;
+import com.yiya.foryou.data.model.LoginModel;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
-
 
 /**
  * @author xueqi
@@ -23,8 +18,11 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class RegisterViewModel extends BaseViewModel {
 
+    private final LoginModel loginModel;
+
     public RegisterViewModel(@NonNull Application application) {
         super(application);
+        loginModel = new LoginModel();
     }
 
     public ObservableField<String> uid = new ObservableField<>();
@@ -32,24 +30,8 @@ public class RegisterViewModel extends BaseViewModel {
     public ObservableField<String> pwd = new ObservableField<>();
 
     //注册
-    public MutableLiveData<String> register() {
-        final MutableLiveData<String> data = new MutableLiveData<>();
-        NetWorkManager.getRequest().register(uid.get(), pwd.get())
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new NoDataBaseObserver() {
-
-                    @Override
-                    public void onSuccess(String success) {
-                        data.setValue(success);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        data.setValue(null);
-                    }
-
-                });
-        return data;
+    public MutableLiveData<OkBean> register() {
+        return loginModel.register(uid.get(), pwd.get());
     }
 
 }

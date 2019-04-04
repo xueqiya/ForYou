@@ -4,10 +4,9 @@ import android.app.Application;
 
 import com.yiya.foryou.base.BaseViewModel;
 import com.yiya.foryou.bean.NoteBean;
-import com.yiya.foryou.http.api.NetWorkManager;
-import com.yiya.foryou.http.baseobserver.BaseObserver;
-import com.yiya.foryou.http.baseobserver.NoDataBaseObserver;
-import com.yiya.foryou.utils.RxUtils;
+import com.yiya.foryou.bean.NoteLisBean;
+import com.yiya.foryou.bean.OkBean;
+import com.yiya.foryou.data.model.NoteModel;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -21,51 +20,22 @@ import androidx.lifecycle.MutableLiveData;
  * description:
  */
 public class DetailViewModel extends BaseViewModel {
-    public DetailViewModel(@NonNull Application application) {
-        super(application);
-    }
 
+    private final NoteModel noteModel;
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> details = new ObservableField<>();
 
-    public MutableLiveData<String> updateData = new MutableLiveData<>();
+    public DetailViewModel(@NonNull Application application) {
+        super(application);
+        noteModel = new NoteModel();
+    }
 
-    //获取通知详情
     public MutableLiveData<NoteBean> getNoteDetail(int id) {
-        MutableLiveData<NoteBean> NoteDetailData = new MutableLiveData<>();
-        NetWorkManager.getRequest().findNoteBeanById(id)
-                //.compose(RxUtils.bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new BaseObserver<NoteBean>() {
-
-                    @Override
-                    public void onSuccess(NoteBean result) {
-                        NoteDetailData.setValue(result);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        NoteDetailData.setValue(null);
-                    }
-                });
-        return NoteDetailData;
+        return noteModel.getNoteDetail(id);
     }
 
-    //更改笔记
-    public void update(int id, String nowDate) {
-        NetWorkManager.getRequest().updateNote(id, nowDate, title.get(), details.get())
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new NoDataBaseObserver() {
-
-                    @Override
-                    public void onSuccess(String result) {
-                        updateData.setValue(result);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        updateData.setValue(errorMessage);
-                    }
-                });
+    public MutableLiveData<OkBean> update(int id, String nowDate) {
+        return noteModel.update(id, nowDate, title.get(), details.get());
     }
+
 }

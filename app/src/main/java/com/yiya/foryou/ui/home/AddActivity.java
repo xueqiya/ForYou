@@ -45,16 +45,6 @@ public class AddActivity extends BaseActivity<ActivityAddBinding, AddViewModel> 
     @Override
     public void initView() {
         setTime();
-
-        viewModel.Adddata.observe(this, result -> {
-            hideProgress();
-            if (result != null) {
-                finish();
-                T.showShort(App.getInstance(), "添加成功");
-            } else {
-
-            }
-        });
     }
 
     private void setTime() {
@@ -64,8 +54,15 @@ public class AddActivity extends BaseActivity<ActivityAddBinding, AddViewModel> 
     public void add(View v) {
         String uid = (String) SPUtil.get(App.getInstance(), AppConstants.KEY_UID, "");
         showProgress();
-        viewModel.add(uid, nowDate);
-        finish();
+        viewModel.add(uid, nowDate).observe(this, result -> {
+            hideProgress();
+            if (result != null) {
+                finish();
+                T.showShort(App.getInstance(), "添加成功");
+            } else {
+
+            }
+        });
     }
 
     @Override

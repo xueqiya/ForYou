@@ -1,10 +1,9 @@
 package com.yiya.foryou.http.api;
 
-import com.yiya.foryou.bean.BaseBean;
-import com.yiya.foryou.bean.ListBaseBean;
-import com.yiya.foryou.bean.NoDataBaseBean;
 import com.yiya.foryou.bean.NoteBean;
+import com.yiya.foryou.bean.NoteLisBean;
 import com.yiya.foryou.bean.LoginBean;
+import com.yiya.foryou.bean.OkBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;
@@ -20,39 +19,39 @@ public interface AppApi {
 
     //登陆
     @POST("/appApi/login")
-    Observable<BaseBean<LoginBean>> login(@Query("uid") String uid,
+    Observable<LoginBean> login(@Query("uid") String uid,
                                           @Query("pwd") String pwd);
 
     //注册
     @POST("/appApi/register")
-    Observable<NoDataBaseBean> register(@Query("uid") String uid,
-                                        @Query("pwd") String pwd);
+    Observable<OkBean> register(@Query("uid") String uid,
+                                @Query("pwd") String pwd);
 
     //列表
     @POST("/appApi/note")
-    Observable<ListBaseBean<NoteBean>> notice(@Query("uid") String uid,
-                                              @Query("pageNum") int pageNum,
-                                              @Query("size") int size);
+    Observable<NoteLisBean> notice(@Query("uid") String uid,
+                                   @Query("pageNum") int pageNum,
+                                   @Query("size") int size);
 
     //添加
     @POST("/appApi/saveNote")
-    Observable<NoDataBaseBean> saveNote(@Query("uid") String uid,
+    Observable<OkBean> saveNote(@Query("uid") String uid,
                                   @Query("time") String time,
                                   @Query("title") String title,
                                   @Query("details") String details);
 
     //通知详情
     @POST("/appApi/findNoteBeanById")
-    Observable<BaseBean<NoteBean>> findNoteBeanById(@Query("id") int id);
+    Observable<NoteBean> findNoteBeanById(@Query("id") int id);
 
     //更改
     @POST("/appApi/updateNote")
-    Observable<NoDataBaseBean> updateNote(@Query("id") int id,
+    Observable<OkBean> updateNote(@Query("id") int id,
                                     @Query("time") String time,
                                     @Query("title") String title,
                                     @Query("details") String details);
 
     //删除
     @POST("/appApi/deleteNote")
-    Observable<NoDataBaseBean> deleteNote(@Query("id") int id);
+    Observable<OkBean> deleteNote(@Query("id") int id);
 }

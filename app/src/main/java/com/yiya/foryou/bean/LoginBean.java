@@ -7,26 +7,54 @@ package com.yiya.foryou.bean;
  * description:
  */
 public class LoginBean {
+
     /**
-     * uid : xueqi
+     * code : 200
+     * msg : OK
+     * data : {"uid":"xueqi"}
      */
 
-    private String uid;
-    private String pwd;
+    private int code;
+    private String msg;
+    private DataBean data;
 
-    public String getUid() {
-        return uid;
+    public int getCode() {
+        return code;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
+        /**
+         * uid : xueqi
+         */
+
+        private String uid;
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
     }
 }

@@ -1,73 +1,96 @@
 package com.yiya.foryou.bean;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-/**
- * @author xueqi
- * @emil jiaowoxueqiya@gmail.com
- * create at 2019/2/19	17:08
- * description:
- */
-@Entity(tableName = "note")
 public class NoteBean {
+
     /**
-     * id : 1
-     * title : 第1条通知的标题
-     * time : 2019-03-12 09:46:36
+     * code : 200
+     * msg : OK
+     * data : {"id":12,"uid":"xueqi","title":"《淘汰》","time":"2019-03-26 23:54:19","details":"我説了所有的谎 \r\n你全都相信 \r\n简单的我爱你，你却老不信"}
      */
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
-    @ColumnInfo(name = "uid")
-    private String uid;
+    private int code;
+    private String msg;
+    private DataBean data;
 
-    @ColumnInfo(name = "title")
-    private String title;
-
-    @ColumnInfo(name = "time")
-    private String time;
-
-    private String details;
-
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getUid() {
-        return uid;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getTitle() {
-        return title;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public String getTime() {
-        return time;
-    }
+    public static class DataBean {
+        /**
+         * id : 12
+         * uid : xueqi
+         * title : 《淘汰》
+         * time : 2019-03-26 23:54:19
+         * details : 我説了所有的谎
+         你全都相信
+         简单的我爱你，你却老不信
+         */
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+        private int id;
+        private String uid;
+        private String title;
+        private String time;
+        private String details;
 
-    public String getDetails() {
-        return details;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public void setDetails(String details) {
-        this.details = details;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getDetails() {
+            return details;
+        }
+
+        public void setDetails(String details) {
+            this.details = details;
+        }
     }
 }

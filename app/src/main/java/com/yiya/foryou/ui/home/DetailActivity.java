@@ -40,33 +40,33 @@ public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         bindingView.setViewModel(viewModel);
+
+        viewModel.getNoteDetail(id).observe(this, noteBean -> {
+            showContentView();
+            if (noteBean != null) {
+                viewModel.title.set(noteBean.getData().getTitle());
+                viewModel.details.set(noteBean.getData().getDetails());
+            }
+        });
+
     }
 
     @Override
     public void initView() {
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
-
         setTime();
+    }
 
-        viewModel.getNoteDetail(id).observe(this, noteBean -> {
-            showContentView();
-            if (noteBean != null) {
-                viewModel.title.set(noteBean.getTitle());
-                viewModel.details.set(noteBean.getDetails());
-            }
-        });
-        viewModel.updateData.observe(this, successBean -> {
+    public void update(View v) {
+        showProgress();
+        viewModel.update(id, nowDate).observe(this, successBean -> {
+            hideProgress();
             if (successBean != null) {
                 finish();
                 T.showShort(App.getInstance(), "更新成功");
             }
         });
-    }
-
-    public void update(View v) {
-        showProgress();
-        viewModel.update(id, nowDate);
     }
 
     private void setTime() {

@@ -5,15 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.MutableLiveData;
 import androidx.annotation.NonNull;
 
-import com.yiya.foryou.bean.NoteBean;
+import com.yiya.foryou.bean.NoteLisBean;
 import com.yiya.foryou.base.BaseViewModel;
-import com.yiya.foryou.http.api.NetWorkManager;
-import com.yiya.foryou.http.baseobserver.ListBaseObserver;
-import com.yiya.foryou.http.baseobserver.NoDataBaseObserver;
-import com.yiya.foryou.utils.L;
-import com.yiya.foryou.utils.RxUtils;
-
-import java.util.List;
+import com.yiya.foryou.bean.OkBean;
+import com.yiya.foryou.data.model.NoteModel;
 
 /**
  * @author xueqi
@@ -23,53 +18,19 @@ import java.util.List;
  */
 public class HomeViewModel extends BaseViewModel {
 
+    private final NoteModel noteModel;
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
+        noteModel = new NoteModel();
     }
 
-    public MutableLiveData<List<NoteBean>> listData = new MutableLiveData<>();
-    public MutableLiveData<String> deleteData = new MutableLiveData<>();
-
-    public void getHome(String uid,int page) {
-        L.d("page" + page);
-        NetWorkManager.getRequest().notice(uid,page, 10)
-                //.compose(RxUtils.bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new ListBaseObserver<NoteBean>() {
-
-                    @Override
-                    public void onSuccess(List<NoteBean> result) {
-                        listData.setValue(result);
-//                        for (int i = 0; i < result.size(); i++) {
-//                            AppDatabase.getDatabase().homeDao().insertTitle(result.get(i));
-//                        }
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        if (mPage < 1) {
-                            mPage--;
-                        }
-                        listData.setValue(null);
-                    }
-                });
+    public MutableLiveData<NoteLisBean> getNoteLis(String uid, int page) {
+        return noteModel.getNoteLis(uid, page);
+    }
+    public MutableLiveData<OkBean> delete(int id) {
+        return noteModel.delete(id);
     }
 
-    public  void delete(int id) {
-        NetWorkManager.getRequest().deleteNote(id)
-                //.compose(RxUtils.bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .subscribe(new NoDataBaseObserver() {
 
-                    @Override
-                    public void onSuccess(String success) {
-                        deleteData.setValue(success);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage) {
-                        deleteData.setValue(null);
-                    }
-                });
-    }
 }

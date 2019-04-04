@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yiya.foryou.R;
 import com.yiya.foryou.adapter.HomeAdapter;
 import com.yiya.foryou.app.App;
 import com.yiya.foryou.base.BaseFragment;
-import com.yiya.foryou.bean.NoteBean;
+import com.yiya.foryou.bean.NoteLisBean;
 import com.yiya.foryou.databinding.FragmentHomeBinding;
 import com.yiya.foryou.dialog.NormalDialog;
 import com.yiya.foryou.utils.AppConstants;
@@ -22,7 +21,6 @@ import com.yiya.foryou.viewmodel.HomeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -35,7 +33,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  */
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
     private HomeAdapter homeAdapter;
-    private List<NoteBean> beanList;
+    private List<NoteLisBean.DataBean> beanList;
     private String uid;
     private int LongPosition;
 
@@ -57,52 +55,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         bindingView.recycleView.setAdapter(homeAdapter);
         bindingView.refresh.setOnRefreshListener(refreshListener);
         uid = (String) SPUtil.get(App.getInstance(), AppConstants.KEY_UID, "");
-        viewModel.setPage(1);
-        viewModel.getHome(uid, viewModel.getPage());
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel.listData.observe(this, homeBeans -> {
-            showContentView();
-            if (homeBeans != null) {
-                if (bindingView.refresh.isRefreshing()) {
-                    bindingView.refresh.setRefreshing(false);
-                }
-                if (viewModel.getPage() == 1) {
-                    beanList.clear();
-                    beanList.addAll(homeBeans);
-                    homeAdapter.notifyDataSetChanged();
-                    homeAdapter.loadMoreComplete();
-                    bindingView.refresh.setRefreshing(false);
-                    if (homeBeans.size() < 10) {
-                        homeAdapter.loadMoreEnd();
-                    }
-                } else {
-                    beanList.addAll(homeBeans);
-                    homeAdapter.notifyDataSetChanged();
-                    if (homeBeans.size() < 10) {
-                        homeAdapter.loadMoreEnd();
-                    } else {
-                        homeAdapter.loadMoreComplete();
-                    }
-                }
-            } else {
-                if (viewModel.getPage() == 1) {
-                    showError();
-                } else {
-                    homeAdapter.loadMoreEnd();
-                }
-            }
-        });
-        viewModel.deleteData.observe(this, successBean -> {
-            if (successBean != null) {
-                homeAdapter.remove(LongPosition);
-                homeAdapter.notifyDataSetChanged();
-                T.showShort(App.getInstance(), "更新成功");
-            }
-        });
+        onRefresh();
     }
 
     /**
@@ -131,7 +85,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             @Override
             public void onConfirm() {
                 int id = beanList.get(position).getId();
-                viewModel.delete(id);
+                viewModel.delete(id).observe(getActivity(), okBean -> {
+                    if (okBean != null) {
+                        homeAdapter.remove(LongPosition);
+                        homeAdapter.notifyDataSetChanged();
+                        T.showShort(App.getInstance(), "更新成功");
+                    }
+                });
             }
 
             @Override
@@ -147,7 +107,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     private HomeAdapter.RequestLoadMoreListener loadMoreListener = () -> {
         L.d("载入更多");
         viewModel.setPage(viewModel.getPage() + 1);
-        viewModel.getHome(uid, viewModel.getPage());
+        onRefresh();
     };
 
     /**
@@ -155,16 +115,43 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
      */
     private SwipeRefreshLayout.OnRefreshListener refreshListener = () -> {
         viewModel.setPage(1);
-        viewModel.getHome(uid, viewModel.getPage());
+        onRefresh();
     };
 
-    /**
-     * 加载失败时点击刷新
-     */
     @Override
     protected void onRefresh() {
-        viewModel.setPage(1);
-        viewModel.getHome(uid, viewModel.getPage());
+        viewModel.getNoteLis(uid, viewModel.getPage()).observe(this, noteLisBean -> {
+            showContentView();
+            if (noteLisBean != null) {
+                if (bindingView.refresh.isRefreshing()) {
+                    bindingView.refresh.setRefreshing(false);
+                }
+                if (viewModel.getPage() == 1) {
+                    beanList.clear();
+                    beanList.addAll(noteLisBean.getData());
+                    homeAdapter.notifyDataSetChanged();
+                    homeAdapter.loadMoreComplete();
+                    bindingView.refresh.setRefreshing(false);
+                    if (noteLisBean.getData().size() < 10) {
+                        homeAdapter.loadMoreEnd();
+                    }
+                } else {
+                    beanList.addAll(noteLisBean.getData());
+                    homeAdapter.notifyDataSetChanged();
+                    if (noteLisBean.getData().size() < 10) {
+                        homeAdapter.loadMoreEnd();
+                    } else {
+                        homeAdapter.loadMoreComplete();
+                    }
+                }
+            } else {
+                if (viewModel.getPage() == 1) {
+                    showError();
+                } else {
+                    homeAdapter.loadMoreEnd();
+                }
+            }
+        });
     }
 
     private PerfectClickListener clickListener = new PerfectClickListener() {
@@ -172,7 +159,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         protected void onNoDoubleClick(View v) {
             switch (v.getId()) {
                 case R.id.add:
-                    startIntentForResult(DetailActivity.class, null, 2);
+                    startIntentForResult(AddActivity.class, null, 1);
                     break;
             }
         }
@@ -183,7 +170,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-            case 2:
+                L.d("运行了吗");
                 onRefresh();
                 break;
         }

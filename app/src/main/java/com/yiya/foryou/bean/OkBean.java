@@ -1,16 +1,16 @@
 package com.yiya.foryou.bean;
 
-public class BaseBean<T> {
+public class OkBean {
 
     /**
      * code : 200
-     * msg : 登陆成功
-     * data : {"uid":"xueqi"}
+     * msg : OK
+     * data : null
      */
 
     private int code;
     private String msg;
-    private T data;
+    private Object data;
 
     public int getCode() {
         return code;
@@ -28,16 +28,11 @@ public class BaseBean<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
-
-    public boolean isSuccess() {
-        return code == 200;
-    }
 }
-

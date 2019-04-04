@@ -1,6 +1,6 @@
 package com.yiya.foryou.data.room.home;
 
-import com.yiya.foryou.bean.NoteBean;
+import com.yiya.foryou.bean.NoteLisBean;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -15,5 +15,5 @@ import androidx.room.OnConflictStrategy;
 @Dao
 public interface HomeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertTitle(NoteBean... homeBeans);
+    long[] insertTitle(NoteLisBean.DataBean... homeBeans);
 }

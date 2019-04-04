@@ -27,9 +27,9 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding, Regi
 
     public void register(View v) {
         showProgress();
-        viewModel.register().observe(this, result -> {
+        viewModel.register().observe(this, okBean -> {
             hideProgress();
-            if (result != null) {
+            if (okBean != null) {
                 T.showShort(this, "注册成功，请登录");
                 this.finish();
             }
