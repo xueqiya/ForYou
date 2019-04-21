@@ -10,6 +10,7 @@ import com.yiya.foryou.databinding.ActivityLoginBinding;
 import com.yiya.foryou.ui.MainActivity;
 import com.yiya.foryou.utils.AppConstants;
 import com.yiya.foryou.utils.SPUtil;
+import com.yiya.foryou.utils.T;
 import com.yiya.foryou.viewmodel.LoginViewModel;
 
 import androidx.appcompat.app.ActionBar;
@@ -40,12 +41,14 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         showProgress();
         viewModel.login().observe(this, loginBean -> {
             hideProgress();
-            if (loginBean != null) {
+            if (loginBean.isSuccess()) {
                 hideProgress();
                 SPUtil.put(App.getInstance(), AppConstants.KEY_LOGIN, true);
                 SPUtil.put(App.getInstance(), AppConstants.KEY_UID, viewModel.uid.get());
                 SPUtil.put(App.getInstance(), AppConstants.KEY_PWD, viewModel.pwd.get());
                 startIntent(MainActivity.class, null);
+            }else {
+                T.showShort(App.getInstance(),loginBean.getMsg());
             }
         });
     }

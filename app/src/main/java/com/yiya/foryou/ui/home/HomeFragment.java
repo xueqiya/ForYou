@@ -170,7 +170,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                L.d("运行了吗");
                 onRefresh();
                 break;
         }

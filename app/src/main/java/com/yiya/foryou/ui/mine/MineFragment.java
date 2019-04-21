@@ -71,7 +71,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding, MineViewMode
     private void outLogin() {
         Bundle bundle = new Bundle();
         bundle.putString("title", "提示");
-        bundle.putString("message", "您确定要删除吗？");
+        bundle.putString("message", "您确定要退出登录吗？");
         final NormalDialog normalDialog = new NormalDialog();
         normalDialog.setArguments(bundle);
         normalDialog.show(getFragmentManager(), "normalDialog");
